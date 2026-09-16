@@ -1,0 +1,14 @@
+analyzer:
+  exclude:
+    - build/**
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    always_use_package_imports: false
+    avoid_positional_boolean_parameters: false
+    sort_pub_dependencies: false
+    document_ignores: false
+    unnecessary_type_name_in_constructor: false
