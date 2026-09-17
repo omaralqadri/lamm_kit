@@ -66,8 +66,7 @@ class LammConfigScope extends InheritedWidget {
   final LammAppConfig config;
 
   static LammAppConfig of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<LammConfigScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<LammConfigScope>();
     assert(scope != null, 'No LammConfigScope found in context');
     return scope!.config;
   }

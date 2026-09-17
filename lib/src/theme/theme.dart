@@ -10,22 +10,22 @@ import 'package:lamm_kit/src/theme/typography.dart';
 /// Cupertino page transitions on iOS (§4.7).
 abstract final class LammTheme {
   static ThemeData light(LammAppConfig config, Locale locale) => _build(
-        colors: LammColors.light(
-          accent: config.accentLight,
-          accentSoft: config.accentSoftLight,
-        ),
-        brightness: Brightness.light,
-        locale: locale,
-      );
+    colors: LammColors.light(
+      accent: config.accentLight,
+      accentSoft: config.accentSoftLight,
+    ),
+    brightness: Brightness.light,
+    locale: locale,
+  );
 
   static ThemeData dark(LammAppConfig config, Locale locale) => _build(
-        colors: LammColors.dark(
-          accent: config.accentDark,
-          accentSoft: config.accentSoftDark,
-        ),
-        brightness: Brightness.dark,
-        locale: locale,
-      );
+    colors: LammColors.dark(
+      accent: config.accentDark,
+      accentSoft: config.accentSoftDark,
+    ),
+    brightness: Brightness.dark,
+    locale: locale,
+  );
 
   static ThemeData _build({
     required LammColors colors,
@@ -87,9 +87,7 @@ abstract final class LammTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         margin: EdgeInsets.zero,
-        shape: const RoundedRectangleBorder(
-          borderRadius: LammRadius.mediumAll,
-        ),
+        shape: const RoundedRectangleBorder(borderRadius: LammRadius.mediumAll),
       ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: colors.bg,
@@ -103,9 +101,7 @@ abstract final class LammTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: colors.bgElevated,
         surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(
-          borderRadius: LammRadius.mediumAll,
-        ),
+        shape: const RoundedRectangleBorder(borderRadius: LammRadius.mediumAll),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -132,9 +128,7 @@ abstract final class LammTheme {
         backgroundColor: colors.textPrimary,
         contentTextStyle: type.callout.copyWith(color: colors.bg),
         behavior: SnackBarBehavior.floating,
-        shape: const RoundedRectangleBorder(
-          borderRadius: LammRadius.mediumAll,
-        ),
+        shape: const RoundedRectangleBorder(borderRadius: LammRadius.mediumAll),
       ),
       listTileTheme: ListTileThemeData(
         iconColor: colors.textSecondary,
@@ -143,9 +137,7 @@ abstract final class LammTheme {
         minVerticalPadding: LammSpacing.sm,
       ),
       segmentedButtonTheme: SegmentedButtonThemeData(
-        style: ButtonStyle(
-          textStyle: WidgetStatePropertyAll(type.callout),
-        ),
+        style: ButtonStyle(textStyle: WidgetStatePropertyAll(type.callout)),
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colors.accent,

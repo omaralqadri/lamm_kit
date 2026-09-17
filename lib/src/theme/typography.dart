@@ -27,13 +27,13 @@ class LammTypography extends ThemeExtension<LammTypography> {
     final lh = isArabic ? 1.10 : 1.0;
 
     TextStyle s(double size, double lineHeight, FontWeight weight) => TextStyle(
-          fontFamily: family,
-          fontFamilyFallback: fallback,
-          fontSize: size,
-          height: lineHeight / size * lh,
-          fontWeight: weight,
-          leadingDistribution: TextLeadingDistribution.even,
-        );
+      fontFamily: family,
+      fontFamilyFallback: fallback,
+      fontSize: size,
+      height: lineHeight / size * lh,
+      fontWeight: weight,
+      leadingDistribution: TextLeadingDistribution.even,
+    );
 
     return LammTypography(
       display: s(32, 38, FontWeight.w700),
@@ -61,22 +61,22 @@ class LammTypography extends ThemeExtension<LammTypography> {
 
   /// Maps the Lamm scale onto Material's [TextTheme] so stock widgets inherit it.
   TextTheme toTextTheme(Color primary, Color secondary) => TextTheme(
-        displayLarge: display.copyWith(color: primary),
-        displayMedium: display.copyWith(color: primary),
-        displaySmall: title1.copyWith(color: primary),
-        headlineLarge: title1.copyWith(color: primary),
-        headlineMedium: title1.copyWith(color: primary),
-        headlineSmall: title2.copyWith(color: primary),
-        titleLarge: title2.copyWith(color: primary),
-        titleMedium: headline.copyWith(color: primary),
-        titleSmall: callout.copyWith(color: primary),
-        bodyLarge: body.copyWith(color: primary),
-        bodyMedium: body.copyWith(color: primary),
-        bodySmall: footnote.copyWith(color: secondary),
-        labelLarge: headline.copyWith(color: primary),
-        labelMedium: callout.copyWith(color: secondary),
-        labelSmall: caption.copyWith(color: secondary),
-      );
+    displayLarge: display.copyWith(color: primary),
+    displayMedium: display.copyWith(color: primary),
+    displaySmall: title1.copyWith(color: primary),
+    headlineLarge: title1.copyWith(color: primary),
+    headlineMedium: title1.copyWith(color: primary),
+    headlineSmall: title2.copyWith(color: primary),
+    titleLarge: title2.copyWith(color: primary),
+    titleMedium: headline.copyWith(color: primary),
+    titleSmall: callout.copyWith(color: primary),
+    bodyLarge: body.copyWith(color: primary),
+    bodyMedium: body.copyWith(color: primary),
+    bodySmall: footnote.copyWith(color: secondary),
+    labelLarge: headline.copyWith(color: primary),
+    labelMedium: callout.copyWith(color: secondary),
+    labelSmall: caption.copyWith(color: secondary),
+  );
 
   @override
   LammTypography copyWith() => this;

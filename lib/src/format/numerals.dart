@@ -5,7 +5,18 @@ import 'package:intl/intl.dart';
 enum Numerals { auto, western, arabicIndic }
 
 abstract final class LammNumerals {
-  static const _arabicIndic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  static const _arabicIndic = [
+    '٠',
+    '١',
+    '٢',
+    '٣',
+    '٤',
+    '٥',
+    '٦',
+    '٧',
+    '٨',
+    '٩',
+  ];
 
   /// Resolves [Numerals.auto] against the UI [languageCode].
   /// Auto stays Western even in Arabic — the spec's default (§10.4).

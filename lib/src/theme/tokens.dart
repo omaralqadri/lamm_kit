@@ -120,26 +120,26 @@ class LammColors extends ThemeExtension<LammColors> {
 
   @override
   LammColors copyWith({Color? accent, Color? accentSoft}) => LammColors(
-        bg: bg,
-        bgElevated: bgElevated,
-        bgSunken: bgSunken,
-        border: border,
-        textPrimary: textPrimary,
-        textSecondary: textSecondary,
-        textTertiary: textTertiary,
-        accent: accent ?? this.accent,
-        accentSoft: accentSoft ?? this.accentSoft,
-        onAccent: onAccent,
-        success: success,
-        warning: warning,
-        danger: danger,
-        proGradient: proGradient,
-        categoryOrganize: categoryOrganize,
-        categoryConvert: categoryConvert,
-        categoryEdit: categoryEdit,
-        categorySecurity: categorySecurity,
-        categoryOptimize: categoryOptimize,
-      );
+    bg: bg,
+    bgElevated: bgElevated,
+    bgSunken: bgSunken,
+    border: border,
+    textPrimary: textPrimary,
+    textSecondary: textSecondary,
+    textTertiary: textTertiary,
+    accent: accent ?? this.accent,
+    accentSoft: accentSoft ?? this.accentSoft,
+    onAccent: onAccent,
+    success: success,
+    warning: warning,
+    danger: danger,
+    proGradient: proGradient,
+    categoryOrganize: categoryOrganize,
+    categoryConvert: categoryConvert,
+    categoryEdit: categoryEdit,
+    categorySecurity: categorySecurity,
+    categoryOptimize: categoryOptimize,
+  );
 
   @override
   LammColors lerp(ThemeExtension<LammColors>? other, double t) {
@@ -215,9 +215,5 @@ abstract final class LammTouch {
 
 /// Card/sheet shadow — light only; dark relies on [LammColors.bgElevated].
 const List<BoxShadow> lammCardShadow = [
-  BoxShadow(
-    color: Color(0x0F000000),
-    blurRadius: 12,
-    offset: Offset(0, 2),
-  ),
+  BoxShadow(color: Color(0x0F000000), blurRadius: 12, offset: Offset(0, 2)),
 ];
