@@ -5,6 +5,8 @@ export 'src/app_config.dart';
 export 'src/format/bidi.dart';
 export 'src/format/numerals.dart';
 export 'src/icons/phosphor.dart';
+export 'src/purchases/allowance.dart';
+export 'src/purchases/entitlement.dart';
 export 'src/theme/theme.dart';
 export 'src/theme/tokens.dart';
 export 'src/theme/typography.dart';
