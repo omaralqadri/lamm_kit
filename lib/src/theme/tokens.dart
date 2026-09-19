@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 
-/// Design tokens — spec §4.2 (color), §4.4 (spacing, radius, elevation).
+/// Design tokens — `docs/LAMM_BRAND.md` §2 (color), §4 (spacing, radius,
+/// elevation). This overrides the old spec §4.2/§4.3 tokens.
 ///
-/// Neutrals are shared across the Lamm family; the accent comes from the
-/// app config so each app can carry its own.
+/// The whole Lamm family shares one palette; apps are told apart by their
+/// icon, not by a different accent color.
 @immutable
 class LammColors extends ThemeExtension<LammColors> {
   const LammColors({
     required this.bg,
-    required this.bgElevated,
-    required this.bgSunken,
+    required this.surface,
+    required this.sunken,
     required this.border,
     required this.textPrimary,
     required this.textSecondary,
     required this.textTertiary,
     required this.accent,
+    required this.accentPressed,
     required this.accentSoft,
     required this.onAccent,
+    required this.gold,
+    required this.goldSoft,
+    required this.onGold,
     required this.success,
     required this.warning,
     required this.danger,
+    required this.scrim,
     required this.proGradient,
     required this.categoryOrganize,
     required this.categoryConvert,
@@ -28,89 +34,90 @@ class LammColors extends ThemeExtension<LammColors> {
     required this.categoryOptimize,
   });
 
-  /// Light palette. [accent]/[accentSoft] default to Lamm PDF coral.
-  ///
-  /// `warning` deviates from spec §4.2 (#F5A524 → #9A6700): the spec value is
-  /// 2.0:1 on white and fails the AA rule the same section requires.
-  factory LammColors.light({
-    Color accent = const Color(0xFFE5484D),
-    Color accentSoft = const Color(0xFFFDECEC),
-  }) {
-    return LammColors(
-      bg: const Color(0xFFFFFFFF),
-      bgElevated: const Color(0xFFF6F6F8),
-      bgSunken: const Color(0xFFEEEEF2),
-      border: const Color(0xFFE4E4EA),
-      textPrimary: const Color(0xFF0E0E12),
-      textSecondary: const Color(0xFF5B5B66),
-      textTertiary: const Color(0xFF8E8E99),
-      accent: accent,
-      accentSoft: accentSoft,
-      onAccent: const Color(0xFFFFFFFF),
-      success: const Color(0xFF30A46C),
-      warning: const Color(0xFF9A6700),
-      danger: const Color(0xFFD93036),
-      proGradient: _proGradient,
-      categoryOrganize: _organize,
-      categoryConvert: _convert,
-      categoryEdit: _edit,
-      categorySecurity: _security,
-      categoryOptimize: _optimize,
-    );
-  }
-
-  /// Dark palette.
-  factory LammColors.dark({
-    Color accent = const Color(0xFFFF6369),
-    Color accentSoft = const Color(0xFF3A1618),
-  }) {
-    return LammColors(
-      bg: const Color(0xFF0B0B0D),
-      bgElevated: const Color(0xFF16161A),
-      bgSunken: const Color(0xFF1F1F25),
-      border: const Color(0xFF2A2A31),
-      textPrimary: const Color(0xFFF4F4F6),
-      textSecondary: const Color(0xFFA0A0AB),
-      textTertiary: const Color(0xFF6E6E78),
-      accent: accent,
-      accentSoft: accentSoft,
-      // Spec §4.2 lists #FFFFFF, but white on the dark-mode accent is 2.9:1.
-      // AA (§4.2's own rule) wins: dark ink on a light accent, as in Material dark.
-      onAccent: const Color(0xFF2A0709),
-      success: const Color(0xFF3DD68C),
-      warning: const Color(0xFFFFC53D),
-      danger: const Color(0xFFFF6369),
-      proGradient: _proGradient,
-      categoryOrganize: _organize,
-      categoryConvert: _convert,
-      categoryEdit: _edit,
-      categorySecurity: _security,
-      categoryOptimize: _optimize,
-    );
-  }
-
-  static const _proGradient = LinearGradient(
-    colors: [Color(0xFFFF8A4C), Color(0xFFE5484D)],
+  /// Light palette (brand §2).
+  factory LammColors.light() => const LammColors(
+    bg: Color(0xFFF7F8F6),
+    surface: Color(0xFFFFFFFF),
+    sunken: Color(0xFFEDF0EC),
+    border: Color(0xFFDFE4DE),
+    textPrimary: Color(0xFF16211D),
+    textSecondary: Color(0xFF4E5A55),
+    textTertiary: Color(0xFF7C8781),
+    accent: Color(0xFF285B49),
+    accentPressed: Color(0xFF1E4638),
+    accentSoft: Color(0xFFE6EEEA),
+    onAccent: Color(0xFFFFFFFF),
+    gold: Color(0xFFC4AA6C),
+    goldSoft: Color(0xFFF5EEDF),
+    onGold: Color(0xFF16211D),
+    success: Color(0xFF0F9184),
+    // Brand §2 lists #C08A2E, but that is 2.85:1 on bg — under the brand's
+    // own 3:1 rule for icon/large-text colors. Darkened to #AC7C29 (3.48:1),
+    // same hue, smallest change that clears the bar.
+    warning: Color(0xFFAC7C29),
+    danger: Color(0xFFC53B33),
+    scrim: Color(0x73000000),
+    proGradient: _proGradient,
+    categoryOrganize: Color(0xFF2F6D8C),
+    categoryConvert: Color(0xFF0F9184),
+    categoryEdit: Color(0xFF6B5BA6),
+    categorySecurity: Color(0xFFC53B33),
+    categoryOptimize: Color(0xFFC4863A),
   );
-  static const _organize = Color(0xFF3E63DD);
-  static const _convert = Color(0xFF12A594);
-  static const _edit = Color(0xFF8E4EC6);
-  static const _security = Color(0xFFE5484D);
-  static const _optimize = Color(0xFFF76B15);
+
+  /// Dark palette (brand §2). The brand green is too dark to read as an
+  /// accent on dark surfaces, so dark mode uses the lighter `#5E9C85`; the
+  /// app icon still keeps `#285B49` — icons are never re-themed.
+  factory LammColors.dark() => const LammColors(
+    bg: Color(0xFF0E1512),
+    surface: Color(0xFF16211D),
+    sunken: Color(0xFF101A16),
+    border: Color(0xFF26332D),
+    textPrimary: Color(0xFFEDF2EF),
+    textSecondary: Color(0xFFA6B3AD),
+    textTertiary: Color(0xFF7A8781),
+    accent: Color(0xFF5E9C85),
+    accentPressed: Color(0xFF74B29A),
+    accentSoft: Color(0xFF17302A),
+    onAccent: Color(0xFF0B1310),
+    gold: Color(0xFFD9BE83),
+    goldSoft: Color(0xFF2A2318),
+    onGold: Color(0xFF16211D),
+    success: Color(0xFF2BB3A3),
+    warning: Color(0xFFE0A93F),
+    danger: Color(0xFFE5645B),
+    scrim: Color(0x99000000),
+    proGradient: _proGradient,
+    categoryOrganize: Color(0xFF5FA3BF),
+    categoryConvert: Color(0xFF2BB3A3),
+    categoryEdit: Color(0xFF9C8BD6),
+    categorySecurity: Color(0xFFE5645B),
+    categoryOptimize: Color(0xFFE0A93F),
+  );
+
+  /// The only gradient in the UI (brand §2 rule 5): the Pro ornament.
+  static const _proGradient = LinearGradient(
+    colors: [Color(0xFFD8B878), Color(0xFFC4AA6C)],
+  );
 
   final Color bg;
-  final Color bgElevated;
-  final Color bgSunken;
+  final Color surface;
+  final Color sunken;
   final Color border;
   final Color textPrimary;
   final Color textSecondary;
   final Color textTertiary;
   final Color accent;
+  final Color accentPressed;
   final Color accentSoft;
   final Color onAccent;
+  final Color gold;
+  final Color goldSoft;
+  final Color onGold;
   final Color success;
   final Color warning;
   final Color danger;
+  final Color scrim;
   final LinearGradient proGradient;
   final Color categoryOrganize;
   final Color categoryConvert;
@@ -119,27 +126,7 @@ class LammColors extends ThemeExtension<LammColors> {
   final Color categoryOptimize;
 
   @override
-  LammColors copyWith({Color? accent, Color? accentSoft}) => LammColors(
-    bg: bg,
-    bgElevated: bgElevated,
-    bgSunken: bgSunken,
-    border: border,
-    textPrimary: textPrimary,
-    textSecondary: textSecondary,
-    textTertiary: textTertiary,
-    accent: accent ?? this.accent,
-    accentSoft: accentSoft ?? this.accentSoft,
-    onAccent: onAccent,
-    success: success,
-    warning: warning,
-    danger: danger,
-    proGradient: proGradient,
-    categoryOrganize: categoryOrganize,
-    categoryConvert: categoryConvert,
-    categoryEdit: categoryEdit,
-    categorySecurity: categorySecurity,
-    categoryOptimize: categoryOptimize,
-  );
+  LammColors copyWith() => this;
 
   @override
   LammColors lerp(ThemeExtension<LammColors>? other, double t) {
@@ -147,18 +134,23 @@ class LammColors extends ThemeExtension<LammColors> {
     Color c(Color a, Color b) => Color.lerp(a, b, t)!;
     return LammColors(
       bg: c(bg, other.bg),
-      bgElevated: c(bgElevated, other.bgElevated),
-      bgSunken: c(bgSunken, other.bgSunken),
+      surface: c(surface, other.surface),
+      sunken: c(sunken, other.sunken),
       border: c(border, other.border),
       textPrimary: c(textPrimary, other.textPrimary),
       textSecondary: c(textSecondary, other.textSecondary),
       textTertiary: c(textTertiary, other.textTertiary),
       accent: c(accent, other.accent),
+      accentPressed: c(accentPressed, other.accentPressed),
       accentSoft: c(accentSoft, other.accentSoft),
       onAccent: c(onAccent, other.onAccent),
+      gold: c(gold, other.gold),
+      goldSoft: c(goldSoft, other.goldSoft),
+      onGold: c(onGold, other.onGold),
       success: c(success, other.success),
       warning: c(warning, other.warning),
       danger: c(danger, other.danger),
+      scrim: c(scrim, other.scrim),
       proGradient: t < 0.5 ? proGradient : other.proGradient,
       categoryOrganize: c(categoryOrganize, other.categoryOrganize),
       categoryConvert: c(categoryConvert, other.categoryConvert),
@@ -169,7 +161,7 @@ class LammColors extends ThemeExtension<LammColors> {
   }
 }
 
-/// 4-pt spacing grid (§4.4).
+/// 4-pt spacing grid (brand §4).
 abstract final class LammSpacing {
   static const double xxs = 4;
   static const double xs = 8;
@@ -184,7 +176,7 @@ abstract final class LammSpacing {
   static const double screen = 20;
 }
 
-/// Corner radii (§4.4).
+/// Corner radii (brand §4).
 abstract final class LammRadius {
   static const Radius small = Radius.circular(8);
   static const Radius medium = Radius.circular(14);
@@ -196,7 +188,7 @@ abstract final class LammRadius {
   static const BorderRadius full = BorderRadius.all(Radius.circular(999));
 }
 
-/// Motion durations and curves (§4.6).
+/// Motion durations and curves (brand §4).
 abstract final class LammMotion {
   static const Duration fast = Duration(milliseconds: 150);
   static const Duration standard = Duration(milliseconds: 250);
@@ -206,14 +198,15 @@ abstract final class LammMotion {
   static const Curve exit = Curves.easeInCubic;
 }
 
-/// Minimum touch targets (§4.4).
+/// Minimum touch targets (brand §4).
 abstract final class LammTouch {
   static const double ios = 44;
   static const double android = 48;
   static const double min = 48;
 }
 
-/// Card/sheet shadow — light only; dark relies on [LammColors.bgElevated].
+/// Card/sheet shadow — light only; dark relies on [LammColors.surface]
+/// (brand §4: `0 2 12 rgba(20,35,28,.06)`).
 const List<BoxShadow> lammCardShadow = [
-  BoxShadow(color: Color(0x0F000000), blurRadius: 12, offset: Offset(0, 2)),
+  BoxShadow(color: Color(0x0F14231C), blurRadius: 12, offset: Offset(0, 2)),
 ];

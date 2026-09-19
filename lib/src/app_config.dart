@@ -18,10 +18,6 @@ class LammAppConfig {
   const LammAppConfig({
     required this.appId,
     required this.displayName,
-    required this.accentLight,
-    required this.accentDark,
-    required this.accentSoftLight,
-    required this.accentSoftDark,
     required this.entitlementId,
     required this.privacyUrl,
     required this.termsUrl,
@@ -36,10 +32,6 @@ class LammAppConfig {
   /// 'pdf' | 'qr' | 'photocleaner'
   final String appId;
   final String displayName;
-  final Color accentLight;
-  final Color accentDark;
-  final Color accentSoftLight;
-  final Color accentSoftDark;
 
   /// RevenueCat keys. Empty means "no billing backend configured" — the app
   /// falls back to the fake entitlement service (dev/tests).

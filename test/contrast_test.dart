@@ -35,8 +35,11 @@ void main() {
       test('primary text on every background', () {
         for (final bg in {
           'bg': c.bg,
-          'elevated': c.bgElevated,
-          'sunken': c.bgSunken,
+          'surface': c.surface,
+          'sunken': c.sunken,
+          // The Pro card sits its body copy on goldSoft, not onGold — onGold
+          // is only defined for text on solid gold fill (brand §2).
+          'goldSoft': c.goldSoft,
         }.entries) {
           expect(
             contrast(c.textPrimary, bg.value),
@@ -49,8 +52,8 @@ void main() {
       test('secondary text on every background', () {
         for (final bg in {
           'bg': c.bg,
-          'elevated': c.bgElevated,
-          'sunken': c.bgSunken,
+          'surface': c.surface,
+          'sunken': c.sunken,
         }.entries) {
           expect(
             contrast(c.textSecondary, bg.value),
@@ -66,6 +69,18 @@ void main() {
 
       test('onAccent text on accent fill', () {
         expect(contrast(c.onAccent, c.accent), greaterThanOrEqualTo(aaLarge));
+      });
+
+      // Brand §2 rule 2: gold never carries text on its own — `onGold` is
+      // only defined for text on a solid `gold` fill (the Pro badge). `gold`
+      // itself is never the sole carrier of information (it is a decorative
+      // stroke/fill next to onGold text, or a small shape), so it is not
+      // held to the icon/large-text 3:1 rule the way status colors are —
+      // measured, it is ~2:1 on bg/surface/goldSoft alike, same as the
+      // brand doc's own admission that gold reads weakly except as a small
+      // accent (see docs/decisions.md).
+      test('onGold text on gold fill', () {
+        expect(contrast(c.onGold, c.gold), greaterThanOrEqualTo(aaBody));
       });
 
       test('status colors are distinguishable from background', () {

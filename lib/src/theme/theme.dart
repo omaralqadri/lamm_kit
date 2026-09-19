@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lamm_kit/src/app_config.dart';
 import 'package:lamm_kit/src/theme/tokens.dart';
 import 'package:lamm_kit/src/theme/typography.dart';
 
@@ -9,20 +8,14 @@ import 'package:lamm_kit/src/theme/typography.dart';
 /// Material 3 widgets on both platforms, themed with Lamm tokens, but
 /// Cupertino page transitions on iOS (§4.7).
 abstract final class LammTheme {
-  static ThemeData light(LammAppConfig config, Locale locale) => _build(
-    colors: LammColors.light(
-      accent: config.accentLight,
-      accentSoft: config.accentSoftLight,
-    ),
+  static ThemeData light(Locale locale) => _build(
+    colors: LammColors.light(),
     brightness: Brightness.light,
     locale: locale,
   );
 
-  static ThemeData dark(LammAppConfig config, Locale locale) => _build(
-    colors: LammColors.dark(
-      accent: config.accentDark,
-      accentSoft: config.accentSoftDark,
-    ),
+  static ThemeData dark(Locale locale) => _build(
+    colors: LammColors.dark(),
     brightness: Brightness.dark,
     locale: locale,
   );
@@ -45,8 +38,8 @@ abstract final class LammTheme {
       onError: colors.onAccent,
       surface: colors.bg,
       onSurface: colors.textPrimary,
-      surfaceContainerHighest: colors.bgSunken,
-      surfaceContainer: colors.bgElevated,
+      surfaceContainerHighest: colors.sunken,
+      surfaceContainer: colors.surface,
       outline: colors.border,
       outlineVariant: colors.border,
     );
@@ -83,7 +76,7 @@ abstract final class LammTheme {
         space: 1,
       ),
       cardTheme: CardThemeData(
-        color: colors.bgElevated,
+        color: colors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         margin: EdgeInsets.zero,
@@ -99,13 +92,13 @@ abstract final class LammTheme {
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: colors.bgElevated,
+        backgroundColor: colors.surface,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(borderRadius: LammRadius.mediumAll),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: colors.bgSunken,
+        fillColor: colors.sunken,
         border: const OutlineInputBorder(
           borderRadius: LammRadius.mediumAll,
           borderSide: BorderSide.none,
@@ -141,12 +134,12 @@ abstract final class LammTheme {
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colors.accent,
-        linearTrackColor: colors.bgSunken,
-        circularTrackColor: colors.bgSunken,
+        linearTrackColor: colors.sunken,
+        circularTrackColor: colors.sunken,
       ),
       sliderTheme: SliderThemeData(
         activeTrackColor: colors.accent,
-        inactiveTrackColor: colors.bgSunken,
+        inactiveTrackColor: colors.sunken,
         thumbColor: colors.accent,
       ),
       switchTheme: SwitchThemeData(
@@ -162,6 +155,14 @@ abstract final class LammTheme {
         foregroundColor: colors.onAccent,
         elevation: 2,
         shape: const RoundedRectangleBorder(borderRadius: LammRadius.full),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          overlayColor: WidgetStateProperty.resolveWith(
+            (s) =>
+                s.contains(WidgetState.pressed) ? colors.accentPressed : null,
+          ),
+        ),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: colors.bg,
