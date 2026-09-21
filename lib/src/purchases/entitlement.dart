@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 /// Pro entitlement, store-agnostic (§3.2).
 ///
 /// The interface deliberately says nothing about RevenueCat, StoreKit or
-/// Google Play: Lamm PDF uses RevenueCat, Lamm Photo Cleaner is on
+/// Google Play: the newer apps use RevenueCat; Lamm Photo Cleaner is on
 /// `in_app_purchase`, and both should be able to share this and the paywall
 /// that reads it.
 
@@ -140,7 +140,7 @@ class FakeEntitlementService implements EntitlementService {
 
   static const catalogue = [
     ProProduct(
-      id: 'lamm_pdf_pro_annual',
+      id: 'lamm_pro_annual',
       period: ProPeriod.annual,
       priceString: r'$29.99',
       priceAmount: 29.99,
@@ -148,14 +148,14 @@ class FakeEntitlementService implements EntitlementService {
       trialDays: 7,
     ),
     ProProduct(
-      id: 'lamm_pdf_pro_monthly',
+      id: 'lamm_pro_monthly',
       period: ProPeriod.monthly,
       priceString: r'$4.99',
       priceAmount: 4.99,
       currencyCode: 'USD',
     ),
     ProProduct(
-      id: 'lamm_pdf_pro_lifetime',
+      id: 'lamm_pro_lifetime',
       period: ProPeriod.lifetime,
       priceString: r'$59.99',
       priceAmount: 59.99,

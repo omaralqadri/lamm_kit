@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: .fvmrc
+          cache: true
+
+      - run: flutter pub get
+      - run: dart format --set-exit-if-changed lib test
+      - run: flutter analyze
+
+      # Includes the token contrast test: every text/background pair in the
+      # brand palette must pass WCAG AA in both themes.
+      - run: flutter test
+
+      # Rule 2 in README.md: this repo is public and must never carry a key.
+      - name: No hard-coded API keys
+        run: |
+          ! grep -rnE "(sk_|pk_|appl_|goog_|AIza)[A-Za-z0-9_-]{8,}" lib test
