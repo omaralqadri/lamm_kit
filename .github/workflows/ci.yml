@@ -27,4 +27,14 @@ jobs:
       # Rule 2 in README.md: this repo is public and must never carry a key.
       - name: No hard-coded API keys
         run: |
-          ! grep -rnE "(sk_|pk_|appl_|goog_|AIza)[A-Za-z0-9_-]{8,}" lib test
+          set +e
+          grep -rnIE \
+            -e "(sk_|pk_|appl_|goog_|AIza)[A-Za-z0-9_-]{8,}" \
+            -e "sk-ant-" \
+            -e "-----BEGIN [A-Z ]*PRIVATE KEY-----" \
+            -e '"type": "service_account"' \
+            --exclude-dir=.git --exclude-dir=build --exclude-dir=.dart_tool \
+            --exclude=ci.yml .
+          rc=$?
+          # grep: 0 = secret found (fail), 1 = clean (pass), >=2 = grep error (fail)
+          if [ "$rc" -ne 1 ]; then exit 1; fi

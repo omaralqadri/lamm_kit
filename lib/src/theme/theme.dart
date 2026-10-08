@@ -31,7 +31,7 @@ abstract final class LammTheme {
       primary: colors.accent,
       onPrimary: colors.onAccent,
       primaryContainer: colors.accentSoft,
-      onPrimaryContainer: colors.accent,
+      onPrimaryContainer: colors.textPrimary,
       secondary: colors.accent,
       onSecondary: colors.onAccent,
       error: colors.danger,
@@ -115,7 +115,7 @@ abstract final class LammTheme {
           horizontal: LammSpacing.md,
           vertical: LammSpacing.sm,
         ),
-        hintStyle: type.body.copyWith(color: colors.textTertiary),
+        hintStyle: type.body.copyWith(color: colors.textSecondary),
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: colors.textPrimary,

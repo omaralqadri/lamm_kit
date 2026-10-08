@@ -63,12 +63,38 @@ void main() {
         }
       });
 
-      test('tertiary text meets large-text AA (hints, captions)', () {
+      test('tertiary text meets large-text AA (captions)', () {
         expect(contrast(c.textTertiary, c.bg), greaterThanOrEqualTo(aaLarge));
       });
 
+      // The input hint is textSecondary on the sunken fill (theme.dart).
+      test('input hint (textSecondary) on sunken', () {
+        expect(
+          contrast(c.textSecondary, c.sunken),
+          greaterThanOrEqualTo(aaBody),
+        );
+      });
+
       test('onAccent text on accent fill', () {
-        expect(contrast(c.onAccent, c.accent), greaterThanOrEqualTo(aaLarge));
+        expect(contrast(c.onAccent, c.accent), greaterThanOrEqualTo(aaBody));
+      });
+
+      test('onPrimaryContainer on accentSoft', () {
+        final theme = name == 'light'
+            ? LammTheme.light(const Locale('en'))
+            : LammTheme.dark(const Locale('en'));
+        final s = theme.colorScheme;
+        expect(
+          contrast(s.onPrimaryContainer, s.primaryContainer),
+          greaterThanOrEqualTo(aaBody),
+        );
+      });
+
+      test('gold on goldSoft (non-text accent), dark only', () {
+        // Light is 1.95:1 - reported to Omar as a decision, not asserted.
+        if (name == 'dark') {
+          expect(contrast(c.gold, c.goldSoft), greaterThanOrEqualTo(aaLarge));
+        }
       });
 
       // Brand §2 rule 2: gold never carries text on its own — `onGold` is
@@ -83,17 +109,33 @@ void main() {
         expect(contrast(c.onGold, c.gold), greaterThanOrEqualTo(aaBody));
       });
 
-      test('status colors are distinguishable from background', () {
+      test('status colors on bg/surface/sunken (3:1, icon/large)', () {
         for (final pair in {
           'success': c.success,
           'warning': c.warning,
           'danger': c.danger,
         }.entries) {
-          expect(
-            contrast(pair.value, c.bg),
-            greaterThanOrEqualTo(aaLarge),
-            reason: pair.key,
-          );
+          for (final bg in [c.bg, c.surface, c.sunken]) {
+            expect(
+              contrast(pair.value, bg),
+              greaterThanOrEqualTo(aaLarge),
+              reason: pair.key,
+            );
+          }
+        }
+      });
+
+      // Light success/warning are 3.2-3.9:1 on surface/sunken, so they are
+      // not text colours (open decision); danger and all dark ones are.
+      test('status colors as text (4.5:1) where they qualify', () {
+        final text = [
+          c.danger,
+          if (name == 'dark') ...[c.success, c.warning],
+        ];
+        for (final s in text) {
+          for (final bg in [c.bg, c.surface, c.sunken]) {
+            expect(contrast(s, bg), greaterThanOrEqualTo(aaBody));
+          }
         }
       });
     });

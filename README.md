@@ -15,8 +15,14 @@ dependencies:
   lamm_kit:
     git:
       url: https://github.com/omaralqadri/lamm_kit.git
-      ref: v0.1.0
+      ref: v0.1.1
 ```
+
+## Fonts
+
+The kit does not ship fonts. Apps must bundle the **Inter** and
+**IBM Plex Sans Arabic** font files themselves and declare them in their own
+`pubspec.yaml`.
 
 ## Rules
 

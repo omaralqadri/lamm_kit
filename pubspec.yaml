@@ -1,6 +1,6 @@
 name: lamm_kit
 description: Shared Flutter kit for the Lamm app family — theme, components, purchases, settings.
-version: 0.1.0
+version: 0.1.1
 publish_to: none
 
 environment:
