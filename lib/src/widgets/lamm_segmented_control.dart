@@ -42,7 +42,9 @@ class LammSegmentedControl<T> extends StatelessWidget {
         color: c.sunken,
         borderRadius: LammRadius.mediumAll,
       ),
+      // Labels wrap at large text scale; stretch keeps segments equal height.
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for (final s in segments)
             Expanded(
@@ -85,8 +87,7 @@ class LammSegmentedControl<T> extends StatelessWidget {
                         Flexible(
                           child: Text(
                             s.label,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
                             style: t.callout.copyWith(
                               fontWeight: FontWeight.w600,
                               color: s.value == selected
