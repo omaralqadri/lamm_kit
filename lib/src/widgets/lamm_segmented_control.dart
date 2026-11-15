@@ -43,70 +43,74 @@ class LammSegmentedControl<T> extends StatelessWidget {
         borderRadius: LammRadius.mediumAll,
       ),
       // Labels wrap at large text scale; stretch keeps segments equal height.
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (final s in segments)
-            Expanded(
-              child: Semantics(
-                button: true,
-                selected: s.value == selected,
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => onChanged(s.value),
-                  child: AnimatedContainer(
-                    duration: LammMotion.fast,
-                    curve: LammMotion.enter,
-                    constraints: const BoxConstraints(minHeight: LammTouch.ios),
-                    padding: const EdgeInsetsDirectional.symmetric(
-                      horizontal: LammSpacing.xs,
-                    ),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: s.value == selected
-                          ? c.surface
-                          : Colors.transparent,
-                      borderRadius: LammRadius.smallAll,
-                      border: s.value == selected
-                          ? Border.all(color: c.border)
-                          : null,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (s.icon != null) ...[
-                          Icon(
-                            s.icon,
-                            size: 18,
-                            color: s.value == selected
-                                ? c.accent
-                                : c.textSecondary,
-                          ),
-                          const SizedBox(width: LammSpacing.xxs),
-                        ],
-                        Flexible(
-                          child: Text(
-                            s.label,
-                            textAlign: TextAlign.center,
-                            style: t.callout.copyWith(
-                              fontWeight: FontWeight.w600,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final s in segments)
+              Expanded(
+                child: Semantics(
+                  button: true,
+                  selected: s.value == selected,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => onChanged(s.value),
+                    child: AnimatedContainer(
+                      duration: LammMotion.fast,
+                      curve: LammMotion.enter,
+                      constraints: const BoxConstraints(
+                        minHeight: LammTouch.ios,
+                      ),
+                      padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: LammSpacing.xs,
+                      ),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: s.value == selected
+                            ? c.surface
+                            : Colors.transparent,
+                        borderRadius: LammRadius.smallAll,
+                        border: s.value == selected
+                            ? Border.all(color: c.border)
+                            : null,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (s.icon != null) ...[
+                            Icon(
+                              s.icon,
+                              size: 18,
                               color: s.value == selected
                                   ? c.accent
                                   : c.textSecondary,
                             ),
+                            const SizedBox(width: LammSpacing.xxs),
+                          ],
+                          Flexible(
+                            child: Text(
+                              s.label,
+                              textAlign: TextAlign.center,
+                              style: t.callout.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: s.value == selected
+                                    ? c.accent
+                                    : c.textSecondary,
+                              ),
+                            ),
                           ),
-                        ),
-                        if (s.marker != null) ...[
-                          const SizedBox(width: LammSpacing.xxs),
-                          s.marker!,
+                          if (s.marker != null) ...[
+                            const SizedBox(width: LammSpacing.xxs),
+                            s.marker!,
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
